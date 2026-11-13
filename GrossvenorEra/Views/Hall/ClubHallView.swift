@@ -51,14 +51,18 @@ struct ClubHallView: View {
             .navigationBarTitleDisplayMode(.inline)
             .fullScreenCover(item: $destination) { dest in
                 switch dest {
-                case .estate:  EstateView()
-                case .mystery: MysteryView()
-                case .tea:     TeaRoomView()
+                case .estate:
+                    NavigationStack { EstateView() }
+                case .mystery:
+                    NavigationStack { MysteryView() }
+                case .tea:
+                    NavigationStack { TeaRoomView() }
                 case .heraldry:
                     NavigationStack {
                         ZStack { ClubBackground(); HeraldryQuizView() }
                     }
-                case .studio: StudioView()
+                case .studio:
+                    NavigationStack { StudioView() }
                 }
             }
             .sheet(isPresented: $showScores) { LocalScoresView() }

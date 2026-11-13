@@ -3,6 +3,7 @@ import SwiftUI
 struct RoomChrome: ViewModifier {
     let title: String
     var boardKey: BoardKey?
+    var onDismiss: () -> Void
     var onInfo: (() -> Void)?
     @State private var showScores = false
 
@@ -11,6 +12,13 @@ struct RoomChrome: ViewModifier {
             .navigationTitle(title)
             .navigationBarTitleDisplayMode(.inline)
             .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Button(action: onDismiss) {
+                        Image(systemName: "chevron.left")
+                            .fontWeight(.semibold)
+                    }
+                    .accessibilityLabel("Leave room")
+                }
                 ToolbarItemGroup(placement: .topBarTrailing) {
                     if boardKey != nil {
                         Button { showScores = true } label: {
@@ -33,7 +41,7 @@ struct RoomChrome: ViewModifier {
 }
 
 extension View {
-    func roomChrome(title: String, boardKey: BoardKey? = nil, onInfo: (() -> Void)? = nil) -> some View {
-        modifier(RoomChrome(title: title, boardKey: boardKey, onInfo: onInfo))
+    func roomChrome(title: String, boardKey: BoardKey? = nil, onDismiss: @escaping () -> Void, onInfo: (() -> Void)? = nil) -> some View {
+        modifier(RoomChrome(title: title, boardKey: boardKey, onDismiss: onDismiss, onInfo: onInfo))
     }
 }

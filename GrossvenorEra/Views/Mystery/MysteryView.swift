@@ -45,7 +45,7 @@ struct MysteryView: View {
                 .transition(.opacity)
             }
         }
-        .roomChrome(title: "The Library", boardKey: .mystery) { showRules = true }
+        .roomChrome(title: "The Library", boardKey: .mystery, onDismiss: { dismiss() }) { showRules = true }
         .sheet(isPresented: $showRules) {
             RulesSheet(
                 title: "Mayfair Mysteries",

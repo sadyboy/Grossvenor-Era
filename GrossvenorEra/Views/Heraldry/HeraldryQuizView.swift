@@ -29,7 +29,7 @@ struct HeraldryQuizView: View {
                 .transition(.opacity)
             }
         }
-        .roomChrome(title: "The Heralds' Chamber", boardKey: .heraldry) { showRules = true }
+        .roomChrome(title: "The Heralds' Chamber", boardKey: .heraldry, onDismiss: { dismiss() }) { showRules = true }
         .sheet(isPresented: $showRules) {
             RulesSheet(
                 title: "Blazon & Shield",

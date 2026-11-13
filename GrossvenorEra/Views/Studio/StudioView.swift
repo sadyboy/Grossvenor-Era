@@ -54,7 +54,7 @@ struct StudioView: View {
                 .padding(16).padding(.bottom, 32)
             }
         }
-        .roomChrome(title: "The Design Studio") { }
+        .roomChrome(title: "The Design Studio", onDismiss: { dismiss() })
     }
 
     private var poster: some View {

@@ -64,7 +64,7 @@ struct TeaRoomView: View {
                 .transition(.opacity)
             }
         }
-        .roomChrome(title: "The Tea Room", boardKey: .tea) { showRules = true }
+        .roomChrome(title: "The Tea Room", boardKey: .tea, onDismiss: { dismiss() }) { showRules = true }
         .sheet(isPresented: $showRules) {
             RulesSheet(
                 title: "Afternoon Tea",

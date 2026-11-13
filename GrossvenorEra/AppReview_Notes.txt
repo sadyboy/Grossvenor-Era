@@ -1,0 +1,15 @@
+APP REVIEW NOTES — Grosvenor Era
+
+A screen recording is attached showing the full app flow from launch.
+
+1. The recording covers app launch, onboarding, all five game rooms, the profile screen, and the journal. There are no accounts, no login, and no account deletion — the app works entirely without sign-in. No paid features or in-app purchases exist.
+
+2. Grosvenor Era is a single-player puzzle collection set in a Victorian Mayfair club. It has five games: a tile-placement strategy puzzle, a logic deduction mystery, a liquid-sort tea puzzle, a heraldry quiz, and a coat-of-arms design tool. It's aimed at adults who want thoughtful games with no ads or subscriptions.
+
+3. No setup needed. The app opens to onboarding on first launch, then straight to the club hall. All five rooms are accessible immediately with no credentials required.
+
+4. No external services are used. No APIs, analytics, authentication, or payment processors. All progress is saved locally via UserDefaults.
+
+5. The app works the same in every region. No localisation differences.
+
+6. All content is original — game mechanics, text, and illustrations were created by the developer. No licensed or third-party material is used.

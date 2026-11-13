@@ -38,7 +38,7 @@ struct EstateView: View {
                 .transition(.opacity)
             }
         }
-        .roomChrome(title: "Grosvenor Square", boardKey: .estate) { showRules = true }
+        .roomChrome(title: "Grosvenor Square", boardKey: .estate, onDismiss: { dismiss() }) { showRules = true }
         .sheet(isPresented: $showRules) {
             RulesSheet(
                 title: "The Estate Office",
