@@ -55,7 +55,7 @@ private let pages: [OnboardingPage] = [
 struct OnboardingView: View {
     @AppStorage("onboarding.done") private var done = false
     @State private var page = 0
-
+    var onFinished: (() -> Void)? = nil
     var body: some View {
         ZStack {
             ClubBackground()
@@ -87,12 +87,14 @@ struct OnboardingView: View {
                         Button("Enter the Club") {
                             withAnimation(.easeInOut(duration: 0.4)) { done = true }
                             Haptics.success()
+                            onFinished?()
                         }
                         .buttonStyle(BrassButtonStyle())
                     }
                     if page < pages.count - 1 {
                         Button("Skip") {
                             withAnimation(.easeInOut(duration: 0.35)) { done = true }
+                            onFinished?()
                         }
                         .font(.display(14, .regular)).foregroundStyle(Palette.mutedText)
                     }

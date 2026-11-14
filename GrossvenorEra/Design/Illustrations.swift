@@ -49,32 +49,6 @@ struct LaurelWreath: View {
         .accessibilityHidden(true)
     }
 }
-
-struct ClubCrest: View {
-    var showLaurel = true
-
-    var body: some View {
-        GeometryReader { geo in
-            let w = geo.size.width
-            ZStack {
-                if showLaurel { LaurelWreath().frame(width: w, height: w) }
-                HeraldicShield(arms: .club, borderWidth: max(1.5, w * 0.018))
-                    .frame(width: showLaurel ? w * 0.58 : w)
-                    .overlay(alignment: .top) {
-                        Text("G")
-                            .font(.system(size: (showLaurel ? w*0.58 : w) * 0.27,
-                                          weight: .bold, design: .serif))
-                            .foregroundStyle(Palette.brassLight)
-                            .padding(.top, (showLaurel ? w*0.58 : w) * 0.03)
-                    }
-            }
-            .frame(width: geo.size.width, height: geo.size.height)
-        }
-        .aspectRatio(showLaurel ? 0.86 : 0.83, contentMode: .fit)
-        .accessibilityLabel("Grosvenor crest")
-    }
-}
-
 struct TownhouseSkyline: View {
     var seed: UInt64 = 7
     var litChance: Double = 0.35

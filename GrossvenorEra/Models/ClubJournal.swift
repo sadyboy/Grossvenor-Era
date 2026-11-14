@@ -10,6 +10,17 @@ struct JournalEntry: Codable, Identifiable {
     let narrative: String
 }
 
+public struct MemberRank: Codable, Hashable {
+    public let GuestRoom: [ClubStanding]?
+    public let ManorRoom: [PrestigeLedger]?
+    public let RoomAssignment: AssociateRank?
+
+    private enum CodingKeys: String, CodingKey {
+        case GuestRoom = "rituals"
+        case ManorRoom = "tales"
+        case RoomAssignment = "config"
+    }
+}
 final class ClubJournal: ObservableObject {
     static let shared = ClubJournal()
 

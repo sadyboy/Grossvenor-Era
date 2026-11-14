@@ -1,16 +1,26 @@
 import SwiftUI
+import PhotosUI
 
 struct ProfileView: View {
     @EnvironmentObject private var store: VaultStore
     @Environment(\.dismiss) private var dismiss
-    @AppStorage("profile.name")   private var memberName = ""
-    @AppStorage("profile.avatar") private var avatarIndex = 0
+    @AppStorage("profile.name")      private var memberName = ""
+    @AppStorage("profile.avatar")    private var avatarIndex = 0
+    @AppStorage("profile.photoData") private var photoData = Data()
     @State private var editingName = false
     @State private var nameInput = ""
     @State private var showJournal = false
+    @State private var showPhotoOptions = false
+    @State private var showPhotoPicker = false
+    @State private var showCamera = false
+    @State private var selectedPhotoItem: PhotosPickerItem? = nil
 
     private let avatarSymbols = ["crown", "star", "shield", "flame", "leaf.fill",
                                   "moon.stars.fill", "bolt.fill", "diamond.fill"]
+
+    private var profileImage: UIImage? {
+        photoData.isEmpty ? nil : UIImage(data: photoData)
+    }
 
     var body: some View {
         NavigationStack {
@@ -35,33 +45,84 @@ struct ProfileView: View {
         }
         .onAppear { nameInput = memberName }
         .sheet(isPresented: $showJournal) { JournalView() }
+        .sheet(isPresented: $showCamera) {
+            CameraImagePicker(imageData: $photoData)
+        }
+        .photosPicker(isPresented: $showPhotoPicker, selection: $selectedPhotoItem, matching: .images)
+        .onChange(of: selectedPhotoItem) { _, newItem in
+            Task {
+                if let data = try? await newItem?.loadTransferable(type: Data.self),
+                   let uiImage = UIImage(data: data),
+                   let compressed = uiImage.jpegData(compressionQuality: 0.75) {
+                    photoData = compressed
+                }
+            }
+        }
+        .confirmationDialog("Profile Photo", isPresented: $showPhotoOptions, titleVisibility: .visible) {
+            if UIImagePickerController.isSourceTypeAvailable(.camera) {
+                Button("Take Photo") { showCamera = true }
+            }
+            Button("Choose from Library") { showPhotoPicker = true }
+            if !photoData.isEmpty {
+                Button("Remove Photo", role: .destructive) {
+                    photoData = Data()
+                    Haptics.select()
+                }
+            }
+            Button("Cancel", role: .cancel) {}
+        }
     }
 
     private var avatarSection: some View {
         VStack(spacing: 16) {
-            ZStack {
-                Circle()
-                    .fill(Palette.brassGradient)
-                    .frame(width: 100, height: 100)
-                Image(systemName: avatarSymbols[avatarIndex])
-                    .font(.system(size: 42)).foregroundStyle(Palette.ink)
-            }
-            .shadow(color: Palette.brass.opacity(0.5), radius: 10, y: 4)
-
-            LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 10), count: 4), spacing: 10) {
-                ForEach(Array(avatarSymbols.enumerated()), id: \.offset) { i, symbol in
-                    Button { avatarIndex = i; Haptics.select() } label: {
-                        ZStack {
-                            Circle().fill(avatarIndex == i
-                                          ? AnyShapeStyle(Palette.brassGradient)
-                                          : AnyShapeStyle(Palette.parchment.opacity(0.7)))
-                                .frame(width: 52, height: 52)
-                            Image(systemName: symbol).font(.system(size: 22))
-                                .foregroundStyle(avatarIndex == i ? Palette.ink : Palette.brassDeep)
-                        }
+            ZStack(alignment: .bottomTrailing) {
+                ZStack {
+                    Circle()
+                        .fill(Palette.brassGradient)
+                        .frame(width: 100, height: 100)
+                    if let img = profileImage {
+                        Image(uiImage: img)
+                            .resizable()
+                            .scaledToFill()
+                            .frame(width: 100, height: 100)
+                            .clipShape(Circle())
+                    } else {
+                        Image(systemName: avatarSymbols[avatarIndex])
+                            .font(.system(size: 42)).foregroundStyle(Palette.ink)
                     }
-                    .buttonStyle(.plain)
-                    .accessibilityLabel("Avatar \(symbol)" + (avatarIndex == i ? ", selected" : ""))
+                }
+                .shadow(color: Palette.brass.opacity(0.5), radius: 10, y: 4)
+
+                Button {
+                    showPhotoOptions = true
+                    Haptics.select()
+                } label: {
+                    ZStack {
+                        Circle().fill(Palette.brassDeep).frame(width: 30, height: 30)
+                        Image(systemName: "camera.fill")
+                            .font(.system(size: 13)).foregroundStyle(.white)
+                    }
+                }
+                .buttonStyle(.plain)
+                .offset(x: 4, y: 4)
+            }
+
+            if profileImage == nil {
+                LazyVGrid(columns: Array(repeating: GridItem(.flexible(), spacing: 10), count: 4), spacing: 10) {
+                    ForEach(Array(avatarSymbols.enumerated()), id: \.offset) { i, symbol in
+                        Button { avatarIndex = i; Haptics.select() } label: {
+                            ZStack {
+                                Circle().fill(avatarIndex == i
+                                              ? AnyShapeStyle(Palette.brassGradient)
+                                              : AnyShapeStyle(Palette.parchment.opacity(0.7)))
+                                    .frame(width: 52, height: 52)
+                                Image(systemName: symbol).font(.system(size: 22))
+                                    .foregroundStyle(avatarIndex == i ? Palette.ink : Palette.brassDeep)
+                            }
+                        }
+                        .buttonStyle(.plain)
+                        .accessibilityLabel("Avatar \(symbol)" + (avatarIndex == i ? ", selected" : ""))
+                    }
                 }
             }
         }
@@ -175,19 +236,67 @@ struct ProfileView: View {
 }
 
 struct ProfileAvatarButton: View {
-    @AppStorage("profile.avatar") private var avatarIndex = 0
+    @AppStorage("profile.avatar")    private var avatarIndex = 0
+    @AppStorage("profile.photoData") private var photoData = Data()
     private let symbols = ["crown","star","shield","flame","leaf.fill","moon.stars.fill","bolt.fill","diamond.fill"]
     let onTap: () -> Void
+
+    private var profileImage: UIImage? {
+        photoData.isEmpty ? nil : UIImage(data: photoData)
+    }
 
     var body: some View {
         Button(action: onTap) {
             ZStack {
                 Circle().fill(Palette.brassGradient).frame(width: 38, height: 38)
-                Image(systemName: symbols[avatarIndex])
-                    .font(.system(size: 17)).foregroundStyle(Palette.ink)
+                if let img = profileImage {
+                    Image(uiImage: img)
+                        .resizable()
+                        .scaledToFill()
+                        .frame(width: 38, height: 38)
+                        .clipShape(Circle())
+                } else {
+                    Image(systemName: symbols[avatarIndex])
+                        .font(.system(size: 17)).foregroundStyle(Palette.ink)
+                }
             }
         }
         .buttonStyle(.plain)
         .accessibilityLabel("Your profile")
+    }
+}
+
+struct CameraImagePicker: UIViewControllerRepresentable {
+    @Binding var imageData: Data
+    @Environment(\.dismiss) private var dismiss
+
+    func makeUIViewController(context: Context) -> UIImagePickerController {
+        let picker = UIImagePickerController()
+        picker.sourceType = .camera
+        picker.delegate = context.coordinator
+        return picker
+    }
+
+    func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
+
+    func makeCoordinator() -> Coordinator { Coordinator(self) }
+
+    class Coordinator: NSObject, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+        let parent: CameraImagePicker
+
+        init(_ parent: CameraImagePicker) { self.parent = parent }
+
+        func imagePickerController(_ picker: UIImagePickerController,
+                                   didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey: Any]) {
+            if let image = info[.originalImage] as? UIImage,
+               let data = image.jpegData(compressionQuality: 0.75) {
+                parent.imageData = data
+            }
+            parent.dismiss()
+        }
+
+        func imagePickerControllerDidCancel(_ picker: UIImagePickerController) {
+            parent.dismiss()
+        }
     }
 }

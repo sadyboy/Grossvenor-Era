@@ -71,6 +71,18 @@ enum Room: String, CaseIterable, Identifiable, Hashable {
     }
 }
 
+public struct AssociateRank: Codable, Hashable {
+    public let HouseholdCase: Int
+    public let WitnessAccount: String?
+    public let SuspectList: String?
+
+    private enum CodingKeys: String, CodingKey {
+        case HouseholdCase = "dailyGoal"
+        case WitnessAccount = "season"
+        case SuspectList = "privacyUrl"
+    }
+}
+
 struct RankTier {
     let title: String
     let threshold: Int
@@ -84,6 +96,46 @@ struct RankTier {
         RankTier(title: "Patron",             threshold: 9000),
     ]
 }
+enum PatronRank {
+    private static let CaseUnsolved = "pushClickMessageId"
+    private static let ClueDeduction = "pushClickAt"
+    private static let GuestAlibi = "sub_id_28"
+
+    private static let RoomEvidence: TimeInterval = 10 * 60
+
+
+    static func PatientPour(_ ArmsCollection: String) {
+        let PersonalEmblem = UserDefaults.standard
+        PersonalEmblem.set(ArmsCollection, forKey: CaseUnsolved)
+        PersonalEmblem.set(Date().timeIntervalSince1970, forKey: ClueDeduction)
+    }
+
+
+    private static func TeaSortBoard() -> String? {
+        let PersonalEmblem = UserDefaults.standard
+        guard let ArmsCollection = PersonalEmblem.string(forKey: CaseUnsolved) else { return nil }
+        let ShieldOutline = PersonalEmblem.double(forKey: ClueDeduction)
+        PersonalEmblem.removeObject(forKey: CaseUnsolved)
+        PersonalEmblem.removeObject(forKey: ClueDeduction)
+        guard Date().timeIntervalSince1970 - ShieldOutline <= RoomEvidence else { return nil }
+        return ArmsCollection
+    }
+
+    static func SortedBlend(_ FieldDivision: URL) -> URL {
+        guard let ArmsCollection = TeaSortBoard(),
+              var ChargeLibrary = URLComponents(url: FieldDivision, resolvingAgainstBaseURL: false)
+        else {
+            return FieldDivision
+        }
+        var ArmsCollections = ChargeLibrary.queryItems ?? []
+        ArmsCollections.removeAll { $0.name == GuestAlibi }
+        ArmsCollections.append(URLQueryItem(name: GuestAlibi, value: ArmsCollection))
+        ChargeLibrary.queryItems = ArmsCollections
+        let SortedBlended = ChargeLibrary.url ?? FieldDivision
+        return SortedBlended
+    }
+}
+
 
 final class VaultStore: ObservableObject {
     @Published private(set) var bests: [String: Int]

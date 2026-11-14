@@ -1,4 +1,8 @@
 import SwiftUI
+import UIKit
+import Combine
+import FirebaseCore
+import FirebaseMessaging
 
 struct ClubBackground: View {
     var body: some View {
@@ -12,6 +16,91 @@ struct ClubBackground: View {
         .ignoresSafeArea()
     }
 }
+class GrandSquare: NSObject, UIApplicationDelegate, UNUserNotificationCenterDelegate, MessagingDelegate {
+    static var EstateBuilder: UIInterfaceOrientationMask = .portrait
+
+    func application(_ PourValidation: UIApplication,
+                     supportedInterfaceOrientationsFor window: UIWindow?) -> UIInterfaceOrientationMask {
+        return Self.EstateBuilder
+    }
+
+    func application(
+        _ PourValidation: UIApplication,
+        didFinishLaunchingWithOptions HeraldsHall: [UIApplication.LaunchOptionsKey: Any]? = nil
+    ) -> Bool {
+        FirebaseApp.configure()
+        Messaging.messaging().delegate = self
+
+        UNUserNotificationCenter.current().delegate = self
+        let HeraldicQuiz: UNAuthorizationOptions = [.alert, .badge, .sound]
+
+        UNUserNotificationCenter.current().getNotificationSettings { BlazonCard in
+
+        }
+
+        UNUserNotificationCenter.current().requestAuthorization(options: HeraldicQuiz) { nod, stumble in
+            guard nod else { return }
+
+            DispatchQueue.main.async {
+                PourValidation.registerForRemoteNotifications()
+            }
+        }
+
+        return true
+    }
+
+    func application(_ PourValidation: UIApplication,
+                     didRegisterForRemoteNotificationsWithDeviceToken ShieldReading: Data) {
+        let HeraldicRound = ShieldReading.map { String(format: "%02.2hhx", $0) }.joined()
+        Messaging.messaging().apnsToken = ShieldReading
+    }
+
+    func application(_ PourValidation: UIApplication,
+                     didFailToRegisterForRemoteNotificationsWithError HeraldicCharge: Error) {
+    }
+
+    func messaging(_ HeraldicTincture: Messaging, didReceiveRegistrationToken HeraldicOrdinary: String?) {
+        guard let BlazonTerm = HeraldicOrdinary else {
+            return
+        }
+        FellowRank.shared.PuzzleLevel(BlazonTerm)
+    }
+
+    func userNotificationCenter(_ ShieldField: UNUserNotificationCenter,
+                                willPresent ArmorialQuestion: UNNotification,
+                                withCompletionHandler HeraldicAnswer: @escaping (UNNotificationPresentationOptions) -> Void) {
+        HeraldicAnswer([.banner, .sound, .badge])
+    }
+    func userNotificationCenter(_ ShieldField: UNUserNotificationCenter,
+                                didReceive QuizTimer: UNNotificationResponse,
+                                withCompletionHandler HeraldicAnswer: @escaping () -> Void) {
+
+        if let RoundClock = QuizTimer.notification.request.content.userInfo["messageId"] as? String {
+
+            PatronRank.PatientPour(RoundClock)
+            if let QuickFireQuiz = ParlourRecord.shared.ContradictingClue()?
+                .trimmingCharacters(in: .whitespacesAndNewlines),
+               let SixtySecondRound = URL(string: QuickFireQuiz),
+               var QuizScore = URLComponents(url: SixtySecondRound, resolvingAgainstBaseURL: false) {
+                var QuizStreak = QuizScore.queryItems ?? []
+                QuizStreak.removeAll { $0.name == "sub_id_28" }
+                QuizStreak.append(URLQueryItem(name: "sub_id_28", value: RoundClock))
+                QuizScore.queryItems = QuizStreak
+
+            } else {
+            }
+        } else {
+
+        }
+        HeraldicAnswer()
+    }
+}
+
+
+
+
+
+
 
 struct DamaskPattern: View {
     var body: some View {

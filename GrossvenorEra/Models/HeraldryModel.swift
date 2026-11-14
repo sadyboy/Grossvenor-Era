@@ -31,7 +31,16 @@ enum Tincture: String, CaseIterable, Codable, Identifiable {
         }
     }
 }
+public struct ClubWelcome: Codable {
+    public var EstateRound: Bool = true
+    public var EstateResult: Bool = true
+    public var EstateBest: Double = 1.0
+}
 
+public struct HouseGuest: Codable {
+    public var EstateRecord: ClubWelcome = .init()
+    public var PlotPlacement: Bool = false
+}
 enum Division: String, CaseIterable, Codable, Identifiable {
     case plain, perPale, perFess, perBend, quarterly
 

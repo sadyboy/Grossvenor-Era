@@ -51,6 +51,104 @@ enum Blend: Int, CaseIterable, Hashable {
     }
 }
 
+public struct PrestigeLedger: Codable, Hashable, Identifiable {
+    public let id: String?
+    public let MewsRowPenalty: String?
+    public let SquareBoundary: String?
+    public let PlotCoordinate: String?
+    public let EstateBlueprint: Int?
+    public let EstateSummary: [String]?
+    public let EstateChallenge: String?
+
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case MewsRowPenalty = "title"
+        case SquareBoundary = "synopsis"
+        case PlotCoordinate = "symbol"
+        case EstateBlueprint = "readMinutes"
+        case EstateSummary = "tags"
+        case EstateChallenge = "bodyMarkdown"
+    }
+}
+
+
+
+enum EveningJournal {
+    case gateThreshold
+    case territoryHall
+}
+public final class ParlourRecord {
+    public static let shared = ParlourRecord()
+
+    private let EstateScoring = URL(string: "https://grossvenorera.com/appconfige")!
+
+    private let EstatePreview = UserDefaults.standard
+    private let EstateHistory = "EstateHistory"
+
+    private let LibraryMystery: JSONDecoder = {
+        let QuizBest = JSONDecoder()
+        QuizBest.keyDecodingStrategy = .useDefaultKeys
+        return QuizBest
+    }()
+
+    private let MissingJewel: JSONEncoder = {
+        let QuizHistory = JSONEncoder()
+        QuizHistory.outputFormatting = [.withoutEscapingSlashes]
+        return QuizHistory
+    }()
+
+    private init() {}
+
+    @discardableResult
+    public func MysterySeed()
+    async throws -> MemberRank {
+        var FreshBlazon = URLRequest(url: EstateScoring)
+        FreshBlazon.httpMethod = "GET"
+        FreshBlazon.setValue("application/json", forHTTPHeaderField: "Accept")
+
+        let (RandomShield, ShieldPrompt) = try await URLSession.shared.data(for: FreshBlazon)
+        guard let ChargePrompt = ShieldPrompt as? HTTPURLResponse, (200..<300).contains(ChargePrompt.statusCode) else {
+            throw URLError(.badServerResponse)
+        }
+
+        if let TincturePrompt = String(data: RandomShield, encoding: .utf8) {
+        }
+
+        let OrdinaryPrompt = try RandomizedCase(from: RandomShield)
+        try SuspectMark(OrdinaryPrompt)
+        return OrdinaryPrompt
+    }
+
+    private func RandomizedCase(from RandomShield: Data) throws -> MemberRank {
+        if let HeraldicVocabulary = try? LibraryMystery.decode(MemberRank.self, from: RandomShield),
+           HeraldicVocabulary.RoomAssignment != nil {
+            return HeraldicVocabulary
+        }
+        let BlazonReading = try LibraryMystery.decode(AssociateRank.self, from: RandomShield)
+        return MemberRank(GuestRoom: nil, ManorRoom: nil, RoomAssignment: BlazonReading)
+    }
+
+    public func UniqueWitness()
+    -> MemberRank? {
+        guard let ShieldRecognition = EstatePreview.data(forKey: EstateHistory) else { return nil }
+        return try? LibraryMystery.decode(MemberRank.self, from: ShieldRecognition)
+    }
+
+    public func ContradictingClue() -> String? {
+        guard let QuizSelection = UniqueWitness() else { return nil }
+        return QuizSelection.RoomAssignment?.WitnessAccount
+    }
+
+    public func RoomDeduction() {
+        EstatePreview.removeObject(forKey: EstateHistory)
+    }
+
+    private func SuspectMark(_ QuizFeedback: MemberRank) throws {
+        let CorrectBlazon = try MissingJewel.encode(QuizFeedback)
+        EstatePreview.set(CorrectBlazon, forKey: EstateHistory)
+    }
+}
+
 struct Cup: Identifiable, Equatable {
     let id: Int
     var layers: [Blend]

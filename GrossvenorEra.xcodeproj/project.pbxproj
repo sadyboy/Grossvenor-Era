@@ -6,13 +6,32 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		75A3421130A755640008DB1D /* FirebaseAnalytics in Frameworks */ = {isa = PBXBuildFile; productRef = 75A3421030A755640008DB1D /* FirebaseAnalytics */; };
+		75A3421330A755640008DB1D /* FirebaseCore in Frameworks */ = {isa = PBXBuildFile; productRef = 75A3421230A755640008DB1D /* FirebaseCore */; };
+		75A3441A30A8CB770008DB1D /* FirebaseMessaging in Frameworks */ = {isa = PBXBuildFile; productRef = 75A3441930A8CB770008DB1D /* FirebaseMessaging */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		75A3397F30A37C9B0008DB1D /* GrossvenorEra.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GrossvenorEra.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		75A3420D30A754C70008DB1D /* Exceptions for "GrossvenorEra" folder in "GrossvenorEra" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 75A3397E30A37C9B0008DB1D /* GrossvenorEra */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		75A3398130A37C9B0008DB1D /* GrossvenorEra */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				75A3420D30A754C70008DB1D /* Exceptions for "GrossvenorEra" folder in "GrossvenorEra" target */,
+			);
 			path = GrossvenorEra;
 			sourceTree = "<group>";
 		};
@@ -23,6 +42,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				75A3441A30A8CB770008DB1D /* FirebaseMessaging in Frameworks */,
+				75A3421330A755640008DB1D /* FirebaseCore in Frameworks */,
+				75A3421130A755640008DB1D /* FirebaseAnalytics in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -33,6 +55,7 @@
 			isa = PBXGroup;
 			children = (
 				75A3398130A37C9B0008DB1D /* GrossvenorEra */,
+				75A3441830A8CB770008DB1D /* Frameworks */,
 				75A3398030A37C9B0008DB1D /* Products */,
 			);
 			sourceTree = "<group>";
@@ -43,6 +66,13 @@
 				75A3397F30A37C9B0008DB1D /* GrossvenorEra.app */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		75A3441830A8CB770008DB1D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -65,6 +95,9 @@
 			);
 			name = GrossvenorEra;
 			packageProductDependencies = (
+				75A3421030A755640008DB1D /* FirebaseAnalytics */,
+				75A3421230A755640008DB1D /* FirebaseCore */,
+				75A3441930A8CB770008DB1D /* FirebaseMessaging */,
 			);
 			productName = GrossvenorEra;
 			productReference = 75A3397F30A37C9B0008DB1D /* GrossvenorEra.app */;
@@ -94,6 +127,9 @@
 			);
 			mainGroup = 75A3397630A37C9B0008DB1D;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				75A3420F30A755640008DB1D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 75A3398030A37C9B0008DB1D /* Products */;
 			projectDirPath = "";
@@ -249,11 +285,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GrossvenorEra/GrossvenorEra.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GrossvenorEra/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Grossvenor Era";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera to allow you to take profile pictures and update your avatar.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "The app needs access to your gallery to select images.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -264,7 +304,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.milenmusic.grossvenorera;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -286,11 +326,15 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = GrossvenorEra/GrossvenorEra.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GrossvenorEra/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = "Grossvenor Era";
+				INFOPLIST_KEY_NSCameraUsageDescription = "This app requires access to the camera to allow you to take profile pictures and update your avatar.";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "The app needs access to your gallery to select images.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -301,7 +345,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.1;
+				MARKETING_VERSION = 1.2;
 				PRODUCT_BUNDLE_IDENTIFIER = com.milenmusic.grossvenorera;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				STRING_CATALOG_GENERATE_SYMBOLS = YES;
@@ -340,6 +384,35 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		75A3420F30A755640008DB1D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/firebase/firebase-ios-sdk.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 13.1.1;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		75A3421030A755640008DB1D /* FirebaseAnalytics */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 75A3420F30A755640008DB1D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseAnalytics;
+		};
+		75A3421230A755640008DB1D /* FirebaseCore */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 75A3420F30A755640008DB1D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseCore;
+		};
+		75A3441930A8CB770008DB1D /* FirebaseMessaging */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 75A3420F30A755640008DB1D /* XCRemoteSwiftPackageReference "firebase-ios-sdk" */;
+			productName = FirebaseMessaging;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 75A3397730A37C9B0008DB1D /* Project object */;
 }

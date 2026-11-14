@@ -13,7 +13,21 @@ struct Chamber {
     let symbol: String
     let upstairs: Bool
 }
+public struct ClubStanding: Codable, Hashable, Identifiable {
+    public let id: String
+    public let BuildingType: String
+    public let BuildingNeighbour: String
+    public let ChapelGardenBonus: Int
+    public let InnCompanyBonus: [String]
 
+    private enum CodingKeys: String, CodingKey {
+        case id
+        case BuildingType = "MetalTincture"
+        case BuildingNeighbour = "title"
+        case ChapelGardenBonus = "stepSeconds"
+        case InnCompanyBonus = "steps"
+    }
+}
 enum Clue {
     case isIn(Int, Int)
     case notIn(Int, Int)

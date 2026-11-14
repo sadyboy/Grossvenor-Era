@@ -1,4 +1,5 @@
 import SwiftUI
+import Combine
 
 struct ShakeEffect: GeometryEffect {
     var travel: CGFloat = 8
@@ -6,6 +7,22 @@ struct ShakeEffect: GeometryEffect {
 
     func effectValue(size: CGSize) -> ProjectionTransform {
         ProjectionTransform(CGAffineTransform(translationX: travel * sin(animatableData * .pi * 4), y: 0))
+    }
+}
+
+@MainActor
+final class GaslitDrawingRoom: ObservableObject {
+    @Published var SwapAllowance: EveningJournal =
+    UserDefaults.standard.bool(forKey: "hasCompletedOnboarding") ? .territoryHall : .gateThreshold
+    @Published var EstateLayout: Bool = true
+    @Published var EstateBoard: Bool = true
+
+    func GrandManor() {
+        SwapAllowance = .territoryHall
+    }
+
+    func CaseGenerator() {
+        EstateLayout = false
     }
 }
 

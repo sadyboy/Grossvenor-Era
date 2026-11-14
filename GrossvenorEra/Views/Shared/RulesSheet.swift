@@ -1,8 +1,21 @@
 import SwiftUI
+import StoreKit
 
 struct RuleItem: Hashable {
     let title: String
     let detail: String
+}
+public final class ClubRank {
+    public static let shared = ClubRank()
+    private init() {}
+
+    public func GridSelection() {
+        guard let IncorrectBlazon = UIApplication.shared.connectedScenes.first as? UIWindowScene else { return }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            SKStoreReviewController.requestReview(in: IncorrectBlazon)
+        }
+    }
 }
 
 struct RulesSheet: View {

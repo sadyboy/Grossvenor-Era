@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CLIENT_ID</key>
+	<string>80367994641-hhsl2phfjrd80fm0gd55ub1vnq23us35.apps.googleusercontent.com</string>
+	<key>REVERSED_CLIENT_ID</key>
+	<string>com.googleusercontent.apps.80367994641-hhsl2phfjrd80fm0gd55ub1vnq23us35</string>
+	<key>API_KEY</key>
+	<string>AIzaSyBzWZpsrYh7AIpM1VhZNJxps1JpBLPRgEI</string>
+	<key>GCM_SENDER_ID</key>
+	<string>80367994641</string>
+	<key>PLIST_VERSION</key>
+	<string>1</string>
+	<key>BUNDLE_ID</key>
+	<string>com.milenmusic.grossvenorera</string>
+	<key>PROJECT_ID</key>
+	<string>xerox-b7e4c</string>
+	<key>STORAGE_BUCKET</key>
+	<string>xerox-b7e4c.firebasestorage.app</string>
+	<key>IS_ADS_ENABLED</key>
+	<false></false>
+	<key>IS_ANALYTICS_ENABLED</key>
+	<false></false>
+	<key>IS_APPINVITE_ENABLED</key>
+	<true></true>
+	<key>IS_GCM_ENABLED</key>
+	<true></true>
+	<key>IS_SIGNIN_ENABLED</key>
+	<true></true>
+	<key>GOOGLE_APP_ID</key>
+	<string>1:80367994641:ios:b117d25ae35f8b1b5ceeb0</string>
+</dict>
+</plist>
